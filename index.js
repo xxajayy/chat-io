@@ -1,8 +1,6 @@
-const express = require('express')
-const app = express()
-const http = require('http')
-const server = http.createServer(app);
-const { Server } = require("socket.io");
+const app = require('express')()
+const server = require('http').createServer(app);
+const { Server } = require('socket.io');
 const io = new Server(server)
 
 const users={}
@@ -23,8 +21,10 @@ app.get('/',(req,res)=>{
 // })
 // to here
 io.on('connection', (socket) => {
-    socket.on('chat message', (msg) => {
-      io.emit('chat message', msg);
+    console.log("What is this socket: ", socket);
+    console.log("Socket is active!!");
+    socket.on('chat message', (payload) => {
+      io.emit('chat message', payload);
     });
   });
 
